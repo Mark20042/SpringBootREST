@@ -4,7 +4,6 @@ package com.azore.springbootrest;
 import com.azore.springbootrest.model.JobPost;
 import com.azore.springbootrest.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +49,20 @@ public class JobRestController {
     public String deleteJob(@PathVariable("id") int id) {
         jobService.deleteJob(id);
         return "Job with ID " + id + " has been deleted.";
+    }
+
+
+
+    @GetMapping("jobs/search/{keywords}")
+    public List<JobPost> searchByKeywords(@PathVariable("keywords") String keywords) {
+        return jobService.search(keywords);
+    }
+
+
+    @GetMapping("load")
+    public String loadData(){
+        jobService.load();
+        return "Data loaded successfully";
     }
 
 }
